@@ -1,0 +1,173 @@
+[gd_scene load_steps=18 format=3 uid="uid://b2ij4xcqr4ksr"]
+
+[ext_resource type="Script" path="res://Scripts/Characters/Player.gd" id="1_0mclr"]
+[ext_resource type="SpriteFrames" uid="uid://dl7wwx3tx5hc1" path="res://Resources/Characters/player_frames.tres" id="1_5drux"]
+[ext_resource type="Script" path="res://Scenes/Characters/PlayerHUD.gd" id="3_13hmx"]
+[ext_resource type="Theme" uid="uid://c1jqlyld0ufjl" path="res://Resources/maintheme.tres" id="3_txnhx"]
+[ext_resource type="Texture2D" uid="uid://dy5chyefhh4eq" path="res://Sprites/arrow.png" id="4_f8v38"]
+[ext_resource type="FontFile" uid="uid://ccd37wc2idk6q" path="res://Minecraft.ttf" id="4_ia6g4"]
+[ext_resource type="Script" path="res://Scenes/Characters/Arrow.gd" id="5_8p16s"]
+[ext_resource type="Texture2D" uid="uid://ti3n43r3a8wm" path="res://Sprites/pointstext.png" id="5_vp6o8"]
+[ext_resource type="Texture2D" uid="uid://cl8e6u1m8xewa" path="res://Sprites/howtoplaytext.png" id="7_lduh3"]
+[ext_resource type="Texture2D" uid="uid://dsc08ff02m7d2" path="res://Sprites/okbutton.png" id="8_f23t3"]
+[ext_resource type="Texture2D" uid="uid://cc62kbfungod5" path="res://Sprites/okbuttonhover.png" id="9_g1rsi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kiw2x"]
+size = Vector2(11, 12)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_vk34t"]
+light_mode = 1
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_wlogd"]
+light_mode = 1
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_6x43r"]
+light_mode = 1
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_j2e13"]
+light_mode = 1
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_vgroc"]
+light_mode = 1
+
+[node name="Player" type="Node2D"]
+script = ExtResource("1_0mclr")
+speed = 48
+
+[node name="PlayerBody" type="CharacterBody2D" parent="."]
+collision_layer = 69
+
+[node name="PlayerSprite" type="AnimatedSprite2D" parent="PlayerBody"]
+sprite_frames = ExtResource("1_5drux")
+animation = &"dig"
+frame = 6
+frame_progress = 1.0
+
+[node name="PlayerCollision" type="CollisionShape2D" parent="PlayerBody"]
+position = Vector2(0.5, 3)
+shape = SubResource("RectangleShape2D_kiw2x")
+
+[node name="PlayerCam" type="Camera2D" parent="PlayerBody"]
+zoom = Vector2(5, 5)
+
+[node name="PlayerHUD" type="Control" parent="PlayerBody/PlayerCam"]
+z_index = 6
+material = SubResource("CanvasItemMaterial_vk34t")
+layout_mode = 3
+anchors_preset = 0
+offset_left = -115.0
+offset_top = -65.0
+offset_right = 116.0
+offset_bottom = 65.0
+theme = ExtResource("3_txnhx")
+script = ExtResource("3_13hmx")
+
+[node name="TextureRect" type="TextureRect" parent="PlayerBody/PlayerCam/PlayerHUD"]
+material = SubResource("CanvasItemMaterial_wlogd")
+layout_mode = 0
+offset_left = -1.0
+offset_top = -9.0
+offset_right = 39.0
+offset_bottom = 31.0
+texture = ExtResource("5_vp6o8")
+
+[node name="PanelContainer" type="PanelContainer" parent="PlayerBody/PlayerCam/PlayerHUD"]
+material = SubResource("CanvasItemMaterial_wlogd")
+layout_mode = 0
+offset_left = 32.0
+offset_top = 7.0
+offset_right = 41.0
+offset_bottom = 26.0
+scale = Vector2(0.85, 0.85)
+
+[node name="Label" type="Label" parent="PlayerBody/PlayerCam/PlayerHUD/PanelContainer"]
+material = SubResource("CanvasItemMaterial_wlogd")
+layout_mode = 2
+theme_override_colors/font_color = Color(0.984314, 0.94902, 0.211765, 1)
+theme_override_fonts/font = ExtResource("4_ia6g4")
+text = "0"
+vertical_alignment = 2
+
+[node name="TimerContainer" type="PanelContainer" parent="PlayerBody/PlayerCam/PlayerHUD"]
+material = SubResource("CanvasItemMaterial_6x43r")
+layout_mode = 0
+offset_left = 95.0
+offset_top = 5.0
+offset_right = 135.0
+offset_bottom = 24.0
+
+[node name="TimerLabel" type="Label" parent="PlayerBody/PlayerCam/PlayerHUD/TimerContainer"]
+material = SubResource("CanvasItemMaterial_6x43r")
+layout_mode = 2
+theme_override_colors/font_color = Color(0.984314, 0.94902, 0.211765, 1)
+text = "00:00"
+vertical_alignment = 2
+
+[node name="Alert" type="Label" parent="PlayerBody/PlayerCam/PlayerHUD"]
+visible = false
+material = SubResource("CanvasItemMaterial_j2e13")
+layout_mode = 0
+offset_left = 11.0
+offset_top = 59.0
+offset_right = 216.0
+offset_bottom = 78.0
+theme_override_colors/font_color = Color(0.984314, 0.94902, 0.211765, 1)
+text = "Security is being tightened!"
+
+[node name="HowToPlayPanel" type="Panel" parent="PlayerBody/PlayerCam/PlayerHUD"]
+visible = false
+material = SubResource("CanvasItemMaterial_vgroc")
+layout_mode = 0
+offset_left = 53.0
+offset_top = 30.0
+offset_right = 178.0
+offset_bottom = 118.0
+theme = ExtResource("3_txnhx")
+
+[node name="TextureRect" type="TextureRect" parent="PlayerBody/PlayerCam/PlayerHUD/HowToPlayPanel"]
+material = SubResource("CanvasItemMaterial_vgroc")
+layout_mode = 0
+offset_left = 24.0
+offset_top = -4.0
+offset_right = 102.0
+offset_bottom = 36.0
+texture = ExtResource("7_lduh3")
+
+[node name="Label" type="Label" parent="PlayerBody/PlayerCam/PlayerHUD/HowToPlayPanel"]
+material = SubResource("CanvasItemMaterial_vgroc")
+layout_mode = 0
+offset_left = 1.0
+offset_top = 34.0
+offset_right = 249.0
+offset_bottom = 148.0
+scale = Vector2(0.5, 0.5)
+text = "[W][A][S][D] to move
+[SPACE] to detect nearby loot
+[LMB] on a grave to dig it up
+
+Don't get caught!"
+
+[node name="TextureButton" type="TextureButton" parent="PlayerBody/PlayerCam/PlayerHUD/HowToPlayPanel"]
+material = SubResource("CanvasItemMaterial_vgroc")
+layout_mode = 0
+offset_left = 107.0
+offset_top = 62.0
+offset_right = 123.0
+offset_bottom = 78.0
+texture_normal = ExtResource("8_f23t3")
+texture_pressed = ExtResource("9_g1rsi")
+texture_hover = ExtResource("9_g1rsi")
+
+[node name="Arrow" type="Sprite2D" parent="PlayerBody/PlayerCam"]
+modulate = Color(1, 1, 1, 0.490196)
+position = Vector2(0, -19)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("4_f8v38")
+script = ExtResource("5_8p16s")
+
+[node name="AudioPlayer" type="AudioStreamPlayer2D" parent="."]
+volume_db = -2.506
+
+[connection signal="dig_finish" from="." to="PlayerBody/PlayerCam/PlayerHUD" method="_on_player_dig_finish"]
+[connection signal="animation_finished" from="PlayerBody/PlayerSprite" to="." method="_on_player_sprite_animation_finished"]
+[connection signal="pressed" from="PlayerBody/PlayerCam/PlayerHUD/HowToPlayPanel/TextureButton" to="PlayerBody/PlayerCam/PlayerHUD" method="_on_texture_button_pressed"]

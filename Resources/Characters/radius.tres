@@ -1,0 +1,30 @@
+[gd_resource type="SpriteFrames" load_steps=4 format=3 uid="uid://brsyrgl41fvqn"]
+
+[ext_resource type="Texture2D" uid="uid://cluo3pfuruk61" path="res://Sprites/Characters/radiuscircle.png" id="1_yokki"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vtvqr"]
+atlas = ExtResource("1_yokki")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xtts2"]
+atlas = ExtResource("1_yokki")
+region = Rect2(32, 0, 32, 32)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vtvqr")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xtts2")
+}],
+"loop": true,
+"name": &"spotted",
+"speed": 5.0
+}]

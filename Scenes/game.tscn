@@ -1,0 +1,135 @@
+[gd_scene load_steps=11 format=3 uid="uid://bkg1o5rlt7yxn"]
+
+[ext_resource type="Script" path="res://Scripts/game.gd" id="1_jn2lg"]
+[ext_resource type="PackedScene" uid="uid://vpph57t0wrg2" path="res://tile_map.tscn" id="2_f5s0t"]
+[ext_resource type="PackedScene" uid="uid://b2ij4xcqr4ksr" path="res://Scenes/Characters/Player.tscn" id="2_mhear"]
+[ext_resource type="PackedScene" uid="uid://8ew3o7w1vn4f" path="res://Scenes/Characters/Copper.tscn" id="4_i7sbt"]
+[ext_resource type="Script" path="res://Scenes/Fog.gd" id="5_ovkoy"]
+[ext_resource type="PackedScene" uid="uid://dd43dmyypxu80" path="res://Scenes/Candle.tscn" id="7_3htir"]
+[ext_resource type="PackedScene" uid="uid://deir6xeecuu2o" path="res://Scenes/musicplayer.tscn" id="7_pmht4"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_l60ub"]
+noise_type = 3
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2eofb"]
+width = 1024
+height = 1024
+seamless = true
+seamless_blend_skirt = 1.0
+noise = SubResource("FastNoiseLite_l60ub")
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_cusp0"]
+vertices = PackedVector2Array(628, 232, 644, 10, 643, 261, 627, 241, 626, 258, 370, 159, 369, 70, 417, 66, 417, 159, 396, 162, 387, 163, 396, 179, 389, 177, 429, 2, 644, 4, 624, 244, 431, 50, 430, 176, 533, 248, 543, 320, 541, 259, 644, 338, 532, 339, 533, 319, 0, 341, -1, 0, 356, 178, 428, 2, 428, 49, 354, 49)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2), PackedInt32Array(3, 0, 2, 4), PackedInt32Array(5, 6, 7, 8, 9, 10), PackedInt32Array(10, 9, 11, 12), PackedInt32Array(13, 14, 15, 16), PackedInt32Array(17, 16, 15, 18), PackedInt32Array(19, 20, 4), PackedInt32Array(4, 2, 21, 22, 19), PackedInt32Array(23, 19, 22), PackedInt32Array(23, 22, 24, 25, 26), PackedInt32Array(27, 28, 29, 25), PackedInt32Array(25, 29, 26), PackedInt32Array(23, 26, 12, 11, 18), PackedInt32Array(18, 11, 17)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-1, 0, 0, 341, 532, 339, 644, 338, 643, 261, 644, 10, 628, 232, 627, 241, 626, 258, 541, 259, 543, 320, 533, 319, 533, 248, 624, 244, 644, 4, 429, 2, 431, 50, 430, 176, 396, 179, 396, 162, 417, 159, 417, 66, 369, 70, 370, 159, 387, 163, 389, 177, 356, 178, 354, 49, 428, 49, 428, 2)])
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_jn2lg")
+
+[node name="TileMap" parent="." instance=ExtResource("2_f5s0t")]
+
+[node name="Player" parent="." instance=ExtResource("2_mhear")]
+position = Vector2(75, 62)
+
+[node name="NavMap" type="Node2D" parent="."]
+
+[node name="Nav" type="Node2D" parent="NavMap"]
+position = Vector2(162, 299)
+
+[node name="Nav2" type="Node2D" parent="NavMap"]
+position = Vector2(156, 65)
+
+[node name="Nav3" type="Node2D" parent="NavMap"]
+position = Vector2(325, 77)
+
+[node name="Nav4" type="Node2D" parent="NavMap"]
+position = Vector2(322, 191)
+
+[node name="Nav5" type="Node2D" parent="NavMap"]
+position = Vector2(387, 193)
+
+[node name="Nav6" type="Node2D" parent="NavMap"]
+position = Vector2(390, 132)
+
+[node name="Nav7" type="Node2D" parent="NavMap"]
+position = Vector2(392, 193)
+
+[node name="Nav71" type="Node2D" parent="NavMap"]
+position = Vector2(486, 288)
+
+[node name="Nav8" type="Node2D" parent="NavMap"]
+position = Vector2(546, 82)
+
+[node name="Nav9" type="Node2D" parent="NavMap"]
+position = Vector2(545, 232)
+
+[node name="Copper" parent="." instance=ExtResource("4_i7sbt")]
+
+[node name="Copper2" parent="." instance=ExtResource("4_i7sbt")]
+start_node = 4
+
+[node name="Copper3" parent="." instance=ExtResource("4_i7sbt")]
+start_node = 7
+
+[node name="Lights" type="Node" parent="."]
+
+[node name="Fog" type="PointLight2D" parent="Lights"]
+position = Vector2(220, 94)
+color = Color(0.439216, 0.607843, 0.67451, 1)
+energy = 0.2
+shadow_enabled = true
+shadow_item_cull_mask = 7
+texture = SubResource("NoiseTexture2D_2eofb")
+script = ExtResource("5_ovkoy")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="Lights/Fog"]
+position = Vector2(-251, -97)
+color = Color(0.298039, 0.356863, 0.372549, 1)
+
+[node name="Candle" parent="Lights" instance=ExtResource("7_3htir")]
+position = Vector2(381, 157)
+
+[node name="Candle3" parent="Lights" instance=ExtResource("7_3htir")]
+position = Vector2(401, 157)
+
+[node name="Candle6" parent="Lights" instance=ExtResource("7_3htir")]
+position = Vector2(323, 240)
+
+[node name="Candle4" parent="Lights" instance=ExtResource("7_3htir")]
+position = Vector2(169, 288)
+
+[node name="Candle5" parent="Lights" instance=ExtResource("7_3htir")]
+position = Vector2(215, 67)
+
+[node name="Candle2" parent="Lights" instance=ExtResource("7_3htir")]
+position = Vector2(135, 68)
+
+[node name="Candle7" parent="Lights" instance=ExtResource("7_3htir")]
+position = Vector2(462, 46)
+
+[node name="Candle8" parent="Lights" instance=ExtResource("7_3htir")]
+position = Vector2(570, 89)
+
+[node name="Candle9" parent="Lights" instance=ExtResource("7_3htir")]
+position = Vector2(531, 225)
+
+[node name="Candle10" parent="Lights" instance=ExtResource("7_3htir")]
+position = Vector2(523, 324)
+
+[node name="Candle11" parent="Lights" instance=ExtResource("7_3htir")]
+position = Vector2(626, 294)
+
+[node name="Candle12" parent="Lights" instance=ExtResource("7_3htir")]
+position = Vector2(627, 27)
+
+[node name="Candle13" parent="Lights" instance=ExtResource("7_3htir")]
+position = Vector2(73, 210)
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_cusp0")
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="NavigationRegion2D"]
+radius = 7.76
+vertices = PackedVector2Array(357, 53, 427, 54, 427, 173, 400, 175, 400, 165, 422, 166, 421, 61, 364, 65, 365, 165, 383, 165, 384, 174, 360, 174, 357, 54)
+
+[node name="musicplayer" parent="." instance=ExtResource("7_pmht4")]

@@ -1,0 +1,51 @@
+[gd_scene load_steps=7 format=3 uid="uid://8ew3o7w1vn4f"]
+
+[ext_resource type="Script" path="res://Scripts/Characters/Copper.gd" id="1_s7x85"]
+[ext_resource type="SpriteFrames" uid="uid://vnbr47gx27fj" path="res://Resources/Characters/copper_frames.tres" id="2_3sx1e"]
+[ext_resource type="SpriteFrames" uid="uid://brsyrgl41fvqn" path="res://Resources/Characters/radius.tres" id="3_pliaw"]
+[ext_resource type="AudioStream" uid="uid://dy741f53apboa" path="res://Sounds/Hey.wav" id="4_rdttd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wj28e"]
+size = Vector2(8, 18)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jnklt"]
+radius = 63.0079
+
+[node name="Copper" type="Node2D"]
+script = ExtResource("1_s7x85")
+speed = 35
+
+[node name="Body" type="CharacterBody2D" parent="."]
+
+[node name="CopperSprite" type="AnimatedSprite2D" parent="Body"]
+sprite_frames = ExtResource("2_3sx1e")
+animation = &"idle"
+
+[node name="CatchArea" type="Area2D" parent="Body/CopperSprite"]
+collision_layer = 0
+collision_mask = 64
+
+[node name="CatchShape" type="CollisionShape2D" parent="Body/CopperSprite/CatchArea"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_wj28e")
+
+[node name="RadiusArea" type="Area2D" parent="Body"]
+collision_layer = 0
+collision_mask = 4
+
+[node name="RadiusCollision" type="CollisionShape2D" parent="Body/RadiusArea"]
+shape = SubResource("CircleShape2D_jnklt")
+
+[node name="RadiusSprite" type="AnimatedSprite2D" parent="Body/RadiusArea/RadiusCollision"]
+modulate = Color(1, 1, 1, 0.227451)
+scale = Vector2(4, 4)
+sprite_frames = ExtResource("3_pliaw")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Body"]
+stream = ExtResource("4_rdttd")
+volume_db = -5.333
+
+[connection signal="body_entered" from="Body/CopperSprite/CatchArea" to="." method="_on_catch_area_body_entered"]
+[connection signal="area_entered" from="Body/RadiusArea" to="." method="_on_area_2d_area_entered"]
+[connection signal="body_entered" from="Body/RadiusArea" to="." method="_on_radius_area_body_entered"]
+[connection signal="body_exited" from="Body/RadiusArea" to="." method="_on_radius_area_body_exited"]

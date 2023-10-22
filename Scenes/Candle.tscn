@@ -1,0 +1,48 @@
+[gd_scene load_steps=8 format=3 uid="uid://dd43dmyypxu80"]
+
+[ext_resource type="Texture2D" uid="uid://oc00vsjgveb3" path="res://Sprites/World/candle.png" id="1_a6mn1"]
+[ext_resource type="Texture2D" uid="uid://c1hnd2plsvfnk" path="res://Sprites/World/circle.png" id="2_we6l0"]
+[ext_resource type="Script" path="res://Scripts/SimplePlayer.gd" id="2_xt8gv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sq4c4"]
+atlas = ExtResource("1_a6mn1")
+region = Rect2(0, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6abs3"]
+atlas = ExtResource("1_a6mn1")
+region = Rect2(16, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3tls4"]
+atlas = ExtResource("1_a6mn1")
+region = Rect2(32, 0, 16, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ffwow"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sq4c4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6abs3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3tls4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 2.0
+}]
+
+[node name="Candle" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(2, -5)
+sprite_frames = SubResource("SpriteFrames_ffwow")
+script = ExtResource("2_xt8gv")
+
+[node name="PointLight2D" type="PointLight2D" parent="AnimatedSprite2D"]
+position = Vector2(-1, 5)
+color = Color(0.788235, 0.403922, 0, 1)
+energy = 0.5
+shadow_enabled = true
+texture = ExtResource("2_we6l0")
